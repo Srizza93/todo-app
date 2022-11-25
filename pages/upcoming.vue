@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <NavBar />
-  </div>
+  <div>upcoming</div>
 </template>
 
 <script>
@@ -10,5 +8,5 @@ export default {
   head: {
     title: 'Upcoming',
   },
-}
+};
 </script>

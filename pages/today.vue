@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <NavBar />
-  </div>
+  <div>today</div>
 </template>
 
 <script>
@@ -10,5 +8,5 @@ export default {
   head: {
     title: 'Today',
   },
-}
+};
 </script>

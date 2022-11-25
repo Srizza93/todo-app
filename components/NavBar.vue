@@ -36,26 +36,31 @@ export default {
           info: 'upcoming',
         },
       ],
-    }
+    };
   },
   methods: {
     getImgUrl(pic) {
-      const images = require.context('../assets/', false, /\.png$/)
-      return images('./' + pic)
+      const images = require.context('../assets/', false, /\.png$/);
+      return images('./' + pic);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .nav-bar {
+  position: absolute;
   display: flex;
-  flex-direction: row;
-  width: min-content;
-  padding: 10px;
+  flex-direction: column;
+  width: 55px;
+  padding: $main-padding;
+  border-radius: 0 0 10px 0;
   background-color: $nav-color;
 }
 .nuxt-link {
-  padding: 0 10px;
+  padding: $main-padding;
+}
+.nuxt-link:hover {
+  opacity: 0.7;
 }
 </style>
