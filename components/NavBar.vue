@@ -55,7 +55,7 @@ export default {
   width: 55px;
   padding: $main-padding;
   border-radius: 0 0 10px 0;
-  background-color: $nav-color;
+  background-color: $primary-red;
 }
 .nuxt-link {
   padding: $main-padding;

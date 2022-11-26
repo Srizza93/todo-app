@@ -7,7 +7,7 @@
       placeholder="Write something!"
       @keyup.enter="sendTodo"
     />
-    <button @click="sendTodo">Add</button>
+    <button class="submit-but" @click="sendTodo">Add</button>
   </div>
 </template>
 <script>
@@ -36,11 +36,25 @@ export default {
   width: 100%;
   height: 50px;
   padding: 5px 15px;
-  border: none;
+  border: 1px solid $primary-red;
   border-radius: 10px 0 0 10px;
+  background-color: $white-bone;
   font-size: 22px;
 }
 .text-box:focus {
   outline: none;
+}
+.submit-but {
+  width: 10%;
+  min-width: 50px;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  color: white;
+  background-color: $primary-red;
+  font-size: 18px;
+  cursor: pointer;
+}
+.submit-but:hover {
+  opacity: 0.8;
 }
 </style>

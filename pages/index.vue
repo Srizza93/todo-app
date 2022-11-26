@@ -1,11 +1,7 @@
 <template>
   <div class="inbox">
     <add-todo @addTodoFromChild="addTodo" />
-    <ul>
-      <li v-for="(todo, index) in todos" :key="index + 'todo'">
-        <todo-comp :item="todo" />
-      </li>
-    </ul>
+    <todos-list :todos="todos" />
   </div>
 </template>
 
@@ -28,6 +24,7 @@ export default {
       const newTodo = {
         text: todo,
         timestamp: this.createTodoTimeStamp(),
+        expDay: '',
       };
       this.$store.commit('addTodo', newTodo);
     },
