@@ -20,6 +20,10 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/list-icon.ico' }],
   },
 
+  router: {
+    base: '/todo-app/',
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['~/assets/main.scss'],
 
