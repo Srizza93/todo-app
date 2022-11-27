@@ -27,6 +27,7 @@ export default {
   display: $standard-display;
   flex-direction: column;
   width: 100%;
+  max-width: 600px;
 }
 .list-ul {
   display: $standard-display;

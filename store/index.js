@@ -1,3 +1,5 @@
+import timeMod from '../modules/time.js';
+
 export const state = () => ({
   todos: [],
 });
@@ -7,17 +9,13 @@ export const getters = {
     return state.todos;
   },
   todaysTodos(state) {
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const today =
-      year +
-      '-' +
-      String(month).padStart(2, '0') +
-      '-' +
-      String(day).padStart(2, '0');
+    const today = timeMod.year() + '-' + timeMod.month() + '-' + timeMod.day();
     return state.todos.filter((item) => item.expDay === today);
+  },
+  upcomingTodos(state) {
+    return [...state.todos].sort((a, b) => {
+      return new Date(b.expDay) - new Date(a.expDay);
+    });
   },
 };
 
@@ -38,8 +36,8 @@ export const mutations = {
       return item;
     });
   },
-  deleteTodo(state, todoToDel) {
-    const index = state.todos.findIndex((todo) => todo === todoToDel);
+  deleteTodo(state, todo) {
+    const index = state.todos.findIndex((item) => item === todo);
     state.todos.splice(index, 1);
   },
 };

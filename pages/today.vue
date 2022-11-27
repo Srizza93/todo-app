@@ -1,5 +1,8 @@
 <template>
-  <todos-list :todos="todaysTodos" />
+  <div class="today">
+    <span class="todo-title">Today's Todos</span>
+    <todos-list :todos="todaysTodos" />
+  </div>
 </template>
 
 <script>
@@ -15,3 +18,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.today {
+  display: $standard-display;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>

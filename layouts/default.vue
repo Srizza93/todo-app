@@ -15,6 +15,10 @@ export default {
   background-color: $primary-color;
 }
 .nuxt {
+  display: $standard-display;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 40px 35px 40px 100px;
 }
 </style>

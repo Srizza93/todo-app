@@ -3,6 +3,7 @@
     <input
       v-model="todo"
       type="text"
+      maxlength="300"
       class="text-box"
       placeholder="Write something!"
       @keyup.enter="sendTodo"
@@ -31,6 +32,7 @@ export default {
   display: $standard-display;
   flex-direction: row;
   width: 100%;
+  max-width: 600px;
 }
 .text-box {
   width: 100%;

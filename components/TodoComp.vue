@@ -1,18 +1,28 @@
 <template>
   <div class="todo">
     <div class="todo-wrap">
-      <span class="todo-text">{{ item.text }}</span>
-      <span class="todo-timestamp">{{ item.timestamp }}</span>
+      <span class="todo-wrap_todo-text">{{ item.text }}</span>
+      <span class="todo-wrap_todo-timestamp">{{ item.timestamp }}</span>
     </div>
     <div class="todo-wrap">
-      <div class="todo-date">
-        <input v-model="expiration" class="todo-date_input" type="date" />
+      <button class="todo-wrap_close-button" @click="deleteTodo">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="todo-wrap_todo-date">
+        <input
+          v-model="expiration"
+          class="todo-wrap_todo-date_input"
+          type="date"
+          :min="todayTime"
+        />
       </div>
       <span v-if="expiration" class="expiration">{{ expirationDate }}</span>
     </div>
   </div>
 </template>
 <script>
+import timeMod from '../modules/time.js';
+
 export default {
   name: 'TodoComp',
   props: {
@@ -39,11 +49,25 @@ export default {
         exp[0]
       );
     },
+    todayTime() {
+      return timeMod.year() + '-' + timeMod.month() + '-' + timeMod.day();
+    },
   },
   watch: {
     expiration(val) {
       const data = [val, this.$props.item];
       this.$store.commit('addExpToTodo', data);
+    },
+  },
+  mounted() {
+    this.updateExpiration();
+  },
+  methods: {
+    deleteTodo() {
+      this.$store.commit('deleteTodo', this.$props.item);
+    },
+    updateExpiration() {
+      this.expiration = this.$props.item.expDay;
     },
   },
 };
@@ -57,6 +81,7 @@ export default {
   padding: 30px 0;
 }
 .todo-wrap {
+  position: relative;
   display: $standard-display;
   flex-direction: column;
   justify-content: flex-end;
@@ -64,20 +89,20 @@ export default {
   min-height: 150px;
   justify-content: space-between;
 }
-.todo-timestamp {
+.todo-wrap_todo-timestamp {
   color: $secondary-gray;
   font-size: 14px;
 }
-.todo-date {
+.todo-wrap_todo-date {
   width: 64px;
   height: 64px;
   background-image: url(../assets/calendar-icon.png);
   background-repeat: no-repeat;
 }
-.todo-date:hover {
+.todo-wrap_todo-date:hover {
   opacity: 0.7;
 }
-.todo-date_input {
+.todo-wrap_todo-date_input {
   position: relative;
   width: 64px;
   height: 64px;
@@ -88,10 +113,10 @@ export default {
   background-color: transparent;
   cursor: pointer;
 }
-.todo-date_input:focus {
+.todo-wrap_todo-date_input:focus {
   outline: none;
 }
-.todo-date_input::-webkit-calendar-picker-indicator {
+.todo-wrap_todo-date_input::-webkit-calendar-picker-indicator {
   background: transparent;
   bottom: 0;
   color: transparent;
@@ -104,7 +129,7 @@ export default {
   width: 64px;
 }
 
-.todo-text {
+.todo-wrap_todo-text {
   padding-right: 30px;
   margin: 30px 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -112,5 +137,22 @@ export default {
 }
 .expiration {
   font-size: 18px;
+}
+.todo-wrap_close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  background-color: $primary-red;
+  font-size: 22px;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+.todo-wrap_close-button:hover {
+  top: -10px;
 }
 </style>

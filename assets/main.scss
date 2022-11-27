@@ -1,9 +1,11 @@
+@import './variables.scss';
+
 html,
 body,
 ul {
-  min-height: 100%;
   padding: 0;
   margin: 0;
+  background-color: $primary-color;
 }
 
 .page-enter-active,
@@ -13,4 +15,10 @@ ul {
 .page-enter,
 .page-leave-active {
   opacity: 0;
+}
+
+.todo-title {
+  color: $primary-red;
+  font-size: 36px;
+  font-weight: bold;
 }
