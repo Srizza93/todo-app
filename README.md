@@ -44,10 +44,11 @@ A javascript module was used to handle the different time requests [module](http
 As per Nuxt, the index.vue page is the main entrance to the app.
 The different routes can be found in [Pages Folder](https://github.com/Srizza93/todo-app/tree/master/pages).
 
-To run the demo:
+### To run the demo:
 
 ```
 git clone https://github.com/Srizza93/todo-app.git
+cd todo-app
 npm install
 npm run dev
 ```
@@ -56,6 +57,18 @@ For production:
 
 ```
 npm run build
+```
+
+For Testing:
+
+```
+npm run test
+```
+
+For deplotment:
+
+```
+npm run deploy
 ```
 
 ### Principle
@@ -71,6 +84,7 @@ This is the main structure for each page, except for "AddTodo" component, which 
 ```
 
 Getters are used from the store.
+
 ```
 computed: {
     ...mapGetters(['getTodos']),
@@ -78,6 +92,7 @@ computed: {
 ```
 
 This is the store configuration and where the magic happens.
+
 ```
 const getters = {
   getTodos(state) {
