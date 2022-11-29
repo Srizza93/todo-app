@@ -18,6 +18,8 @@ Therefore, in case it needs to be used for production, the code needs to be modi
 
 Jest has been used for unit testing.
 
+A javascript module was used to handle the different time requests [module](https://github.com/Srizza93/todo-app/blob/master/modules/time.js).
+
 ### The routes are
 
 - "/" => Inbox page, component: Index.vue
@@ -58,73 +60,58 @@ npm run build
 
 ### Principle
 
-This is the API request
+This is the main structure for each page, except for "AddTodo" component, which is rendered only in the home page.
 
 ```
-   async fetchData() {
-      try {
-        const url = `https://api.weatherapi.com/v1/current.json?key=9090010261984f75bd8163005222011&q=${this.city}&aqi=no`;
-        const response = await fetch(url)
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            } else if (response.status === 400) {
-              this.redirectToNotFound();
-              return Promise.reject("Selected city is incorrect");
-            } else {
-              this.redirectToNotFound();
-              return Promise.reject("Something went wrong: " + response.status);
-            }
-          })
-          .then((data) => (this.weather = data));
-      } catch (error) {
-        console.log("Can't get data from API: " + error);
-        this.redirectToNotFound();
-      }
-    },
+   <div class="inbox">
+    <add-todo @addTodoFromChild="addTodo" />
+    <todos-list v-if="getTodos.length > 0" :todos="getTodos" />
+    <no-todo-comp v-else>Write something above!</no-todo-comp>
+  </div>
 ```
 
-And this is the input used for the request
-
+Getters are used from the store.
 ```
-<div class="input-container">
-      <input
-        class="input-container_input"
-        type="text"
-        placeholder="Add your city!"
-        v-model="city"
-        @keyup.enter="citySelected"
-      />
-      <div class="input-container_button-wrap">
-        <router-link
-          class="input-container_button-wrap_button"
-          :to="{ name: 'weather', params: { city: city } }"
-          >Go!</router-link
-        >
-      </div>
-    </div>
+computed: {
+    ...mapGetters(['getTodos']),
+  },
 ```
 
-- When the user enters the city's name, on enter key up or router-link click, the router will bring the user to the weather page.
-- In the weather page the user will see the results from API, which are location info and weather conditions current info.
-
-### Configuration
-
+This is the store configuration and where the magic happens.
 ```
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
+const getters = {
+  getTodos(state) {
+    return state.todos;
+  },
 
-import "./assets/main.css";
+  todaysTodos(state) {
+    const today = timeMod.year() + '-' + timeMod.month() + '-' + timeMod.day();
+    return state.todos.filter((item) => item.expDay === today);
+  },
 
-const app = createApp(App);
+  upcomingTodos(state) {
+    return [...state.todos].sort((a, b) => {
+      return new Date(b.expDay) - new Date(a.expDay);
+    });
+  },
+};
 
-app.use(router);
+const mutations = {
+  addTodo(state, newTodo) {
+    state.todos.push(newTodo);
+  },
 
-app.mount("#app");
+  deleteTodo(state, todo) {
+    const index = state.todos.findIndex((item) => item === todo);
+    state.todos.splice(index, 1);
+  },
 
+  addExpToTodo(state, data) {
+    Vue.set(state.todos[data.id - 1], 'expDay', data.expDay);
+  },
+};
 ```
 
 ### Style
 
-- Minimalist design developed via single-file components with scoped style, pure CSS and SCSS.
+- Simple design developed via single-file components with scoped style, pure CSS and SCSS.
