@@ -6,7 +6,7 @@
       :to="link.to"
       class="nuxt-link"
     >
-      <img :src="getImgUrl(link.imgPath)" :alt="link.info" />
+      <img class="nav-img" :src="getImgUrl(link.imgPath)" :alt="link.info" />
     </nuxt-link>
   </div>
 </template>

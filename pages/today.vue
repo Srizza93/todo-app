@@ -1,20 +1,21 @@
 <template>
   <div class="today">
     <span class="todo-title">Today's Todos</span>
-    <todos-list :todos="todaysTodos" />
+    <todos-list v-if="todaysTodos.length > 0" :todos="todaysTodos" />
+    <no-todo-comp v-else>Add a new todo for today</no-todo-comp>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Today',
   head: {
     title: 'Today',
   },
   computed: {
-    todaysTodos() {
-      return this.$store.getters.todaysTodos;
-    },
+    ...mapGetters(['todaysTodos']),
   },
 };
 </script>

@@ -10,13 +10,14 @@
       </button>
       <div class="todo-wrap_todo-date">
         <input
-          v-model="expiration"
+          :value="item.expDay"
           class="todo-wrap_todo-date_input"
           type="date"
           :min="todayTime"
+          @input="setExpiration"
         />
       </div>
-      <span v-if="expiration" class="expiration">{{ expirationDate }}</span>
+      <span v-if="item.expDay" class="expiration">{{ expirationDate }}</span>
     </div>
   </div>
 </template>
@@ -31,14 +32,9 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      expiration: '',
-    };
-  },
   computed: {
     expirationDate() {
-      const exp = this.expiration.split('-');
+      const exp = this.$props.item.expDay.split('-');
       const newDate = new Date(exp[0], exp[1] - 1, exp[2]);
       return (
         exp[2] -
@@ -53,21 +49,16 @@ export default {
       return timeMod.year() + '-' + timeMod.month() + '-' + timeMod.day();
     },
   },
-  watch: {
-    expiration(val) {
-      const data = [val, this.$props.item];
-      this.$store.commit('addExpToTodo', data);
-    },
-  },
-  mounted() {
-    this.updateExpiration();
-  },
   methods: {
     deleteTodo() {
       this.$store.commit('deleteTodo', this.$props.item);
     },
-    updateExpiration() {
-      this.expiration = this.$props.item.expDay;
+    setExpiration(e) {
+      const data = {
+        id: this.$props.item.id,
+        expDay: e.target.value,
+      };
+      this.$store.commit('addExpToTodo', data);
     },
   },
 };

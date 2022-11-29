@@ -32,7 +32,7 @@ export default {
   display: $standard-display;
   flex-direction: row;
   width: 100%;
-  max-width: 600px;
+  max-width: $page-size;
 }
 .text-box {
   width: 100%;

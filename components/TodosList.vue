@@ -11,9 +11,13 @@
     </ul>
   </div>
 </template>
+
 <script>
+import TodoComp from './TodoComp.vue';
+
 export default {
   name: 'TodosList',
+  components: { TodoComp },
   props: {
     todos: {
       type: Array,
@@ -22,12 +26,13 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .todos-list {
   display: $standard-display;
   flex-direction: column;
   width: 100%;
-  max-width: 600px;
+  max-width: $page-size;
 }
 .list-ul {
   display: $standard-display;
