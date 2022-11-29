@@ -65,7 +65,7 @@ For Testing:
 npm run test
 ```
 
-For deplotment:
+For deployment:
 
 ```
 npm run deploy
