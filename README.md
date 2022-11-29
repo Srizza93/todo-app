@@ -129,4 +129,6 @@ const mutations = {
 
 ### Style
 
-- Simple design developed via single-file components with scoped style, pure CSS and SCSS.
+- Simple Responsive design developed via single-file components with scoped style, pure CSS and SCSS.
+- main.scss is the root design.
+- variables.scss are the public SASS variables.

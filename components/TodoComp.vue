@@ -125,6 +125,7 @@ export default {
   margin: 30px 0;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
+  word-break: break-word;
 }
 .expiration {
   font-size: 18px;
@@ -145,5 +146,12 @@ export default {
 }
 .todo-wrap_close-button:hover {
   top: -10px;
+}
+
+@media only screen and (max-width: 550px) {
+  .todo {
+    flex-direction: column-reverse;
+    align-items: baseline;
+  }
 }
 </style>
